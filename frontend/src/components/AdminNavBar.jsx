@@ -1,17 +1,25 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AdminNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Remove auth token
+    navigate("/login"); // Redirect to login page
+  };
+
   return (
     <nav className="bg-[#16423C]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex-shrink-0  flex items-center">
+          <div className="flex-shrink-0 flex items-center">
             <a
               href="/rent_admin_home"
               className="text-[#E9EFEC] font-bold text-2xl"
             >
-              FarmTech
+              LOGO Admin
             </a>
           </div>
           <div className="flex items-center">
@@ -46,6 +54,21 @@ const AdminNavBar = () => {
               </svg>
             </button>
           </div>
+          {/* Desktop Links */}
+          <div className="hidden sm:flex space-x-4 items-center">
+            <a
+              href="/rent_admin_home"
+              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
+            >
+              Dashboard
+            </a>
+            <button
+              onClick={handleLogout}
+              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
+            >
+              Logout
+            </button>
+          </div>
         </div>
       </div>
 
@@ -53,29 +76,17 @@ const AdminNavBar = () => {
       {isOpen && (
         <div className="sm:hidden px-2 pt-2 pb-3 space-y-1">
           <a
-            href="#home"
+            href="/rent_admin_home"
             className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
           >
-            Home
+            Dashboard
           </a>
-          <a
-            href="#tools"
-            className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+          <button
+            onClick={handleLogout}
+            className="text-[#C4DAD2] hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium"
           >
-            Tools
-          </a>
-          <a
-            href="#about"
-            className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            About
-          </a>
-          <a
-            href="#contact"
-            className="text-[#C4DAD2] hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-          >
-            Contact
-          </a>
+            Logout
+          </button>
         </div>
       )}
     </nav>

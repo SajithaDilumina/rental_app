@@ -1,15 +1,22 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const dahamNavBar = () => {
+const DahamNavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Remove token from localStorage
+    navigate("/login"); // Redirect to login page
+  };
 
   return (
     <nav className="bg-[#16423C]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex-shrink-0  flex items-center">
+          <div className="flex-shrink-0 flex items-center">
             <a href="/tools_home" className="text-[#E9EFEC] font-bold text-2xl">
-              FarmTech
+              LOGO
             </a>
           </div>
           <div className="flex items-center">
@@ -51,24 +58,12 @@ const dahamNavBar = () => {
             >
               My rentals
             </a>
-            {/* <a
-              href="/yeildCard/allFarmerSelling"
+            <button
+              onClick={handleLogout}
               className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
             >
-              Selling_Details
-            </a>
-            <a
-              href="/yeildCard/"
-              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
-            >
-              Buyer Card
-            </a>
-            <a
-              href="/yeildCard/allBuyerBuying"
-              className="text-[#C4DAD2] hover:text-white font-medium px-3 py-2 text-lg"
-            >
-              Buying_Details
-            </a> */}
+              Logout
+            </button>
           </div>
         </div>
       </div>
@@ -100,10 +95,16 @@ const dahamNavBar = () => {
           >
             Contact
           </a>
+          <button
+            onClick={handleLogout}
+            className="text-[#C4DAD2] hover:text-white block w-full text-left px-3 py-2 rounded-md text-base font-medium"
+          >
+            Logout
+          </button>
         </div>
       )}
     </nav>
   );
 };
 
-export default dahamNavBar;
+export default DahamNavBar;
